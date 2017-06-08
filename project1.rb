@@ -23,7 +23,7 @@ class Main
 			puts
 			main_menu
 		when option === 2
-			amend_civilization
+			select_amend_civilization
 			main_menu
 		when option === 9
 			exit
@@ -35,19 +35,31 @@ class Main
 		end
 	end
 
-	def amend_civilization
-		count = 0
-		while @civ_array.length > count
-			puts @civ_array[count]
-			count + 1
+	def select_amend_civilization
+		puts
+		puts "Which civilization would you like to amend?"
+		@civ_array.each { |x| x.output_data }
+		puts 
+		puts "Please select by civilization name:"
+		choice = gets.chomp
+		@civ_array.each do |x|
+			if choice.downcase === x.civ_name.downcase
+				x.main_menu
+				main_menu
+			else
+				puts "No civilization matches you query"
+				select_amend_civilization
+			end
 		end
 	end
 end
 
 class Civilization
 
+	attr_reader :civ_name
+
 	def initialize(civ_name, religion, location)
-		@name = civ_name
+		@civ_name = civ_name
 		@religion = religion
 		@location = location
 		@traits = []
@@ -86,11 +98,12 @@ class Civilization
 			puts "Please enter a new trait...."
 			new_trait = gets.chomp
 			@traits << new_trait
+			puts
 		end
 	end
 
 	def output_data
-		puts "Civilization name: #{@name}, Religion: #{@religion}, Location: #{@location}, Traits: #{@traits}"
+		puts "Civilization name: #{@civ_name}, Religion: #{@religion}, Location: #{@location}, Traits: #{@traits}"
 	end
 end
 
