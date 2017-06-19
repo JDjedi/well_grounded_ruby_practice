@@ -1,15 +1,18 @@
 
 class Something
 
-	def initialize(arg, arg1)
+	attr_accessor :venue
+
+	def initialize(arg, arg1, venue)
 		@arg = arg
 		@arg1 = arg1
+		@venue = venue
 	end
 
 	def method_one #instance method one
 		foo = "This is a fun dat-"
 		puts foo + @arg
-		puts foo + @arg1
+		puts foo + @arg1 + " #{@venue}"
 
 		method_two(foo)
 	end
@@ -69,7 +72,7 @@ class Something
  end
 
 def do_something
-	boo = Something.new("bar", "ass")
+	boo = Something.new("bar", "ass", "San Antonio")
 	#boo.method_one
 	#boo.optional_arguments("one", "two")
 	#boo.optional_arguments("one", "two", "three", "four")
